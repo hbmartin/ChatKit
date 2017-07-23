@@ -59,23 +59,17 @@ public class DialogsList extends RecyclerView {
     }
 
     /**
-     * Don't use this method for setting your adapter, otherwise exception will by thrown.
-     * Call {@link #setAdapter(DialogsListAdapter)} instead.
+     * Sets adapter for DialogsList
+     *
+     * @param adapter  Adapter MUST extend DialogsListAdapter
      */
     @Override
     public void setAdapter(Adapter adapter) {
-        throw new IllegalArgumentException("You can't set adapter to DialogsList. Use #setAdapter(DialogsListAdapter) instead.");
-    }
-
-    /**
-     * Sets adapter for DialogsList
-     *
-     * @param adapter  Adapter. Must extend DialogsListAdapter
-     * @param <DIALOG> Dialog model class
-     */
-    public <DIALOG extends IDialog>
-    void setAdapter(DialogsListAdapter<DIALOG> adapter) {
-        setAdapter(adapter, true);
+        if (adapter instanceof DialogsListAdapter) {
+            setAdapter((DialogsListAdapter) adapter, true);
+        } else {
+            throw new IllegalArgumentException("Adapter MUST extend DialogsListAdapter");
+        }
     }
 
     /**
